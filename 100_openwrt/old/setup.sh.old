@@ -1,0 +1,48 @@
+#!/bin/sh
+
+echo 'Load password and delete the secret file for security'
+ROOT_PASS=`cat /root/secret`
+rm -f /root/secret
+
+echo 'Decompress and copy configuration files from rootfs'
+tar -xzf /root/rootfs.tar.gz -C /root
+cp /root/rootfs/** /etc/config
+rm -rf /root/rootfs
+rm -rf /root/rootfs.tar.gz
+
+echo 'Configure openwrt'
+uci set system.@system[0].ttylogin="1"
+uci commit system
+
+#/etc/init.d/system reload
+/etc/init.d/ucitrack reload
+/etc/init.d/uhttpd reload
+/etc/init.d/dropbear reload
+/etc/init.d/rpcd reload
+/etc/init.d/network reload
+/etc/init.d/firewall reload
+/etc/init.d/odhcpd reload
+
+echo 'Update/upgrade openwrt'
+opkg update #&& opkg list-upgradable| awk '{print $1}'| tr '\n' ' '| xargs -r opkg upgrade 
+
+echo 'Install usefull softwares in openwrt'
+opkg install nano-full htop luci-ssl
+
+echo 'Update openwrt root password'
+mount_root
+echo -e "$ROOT_PASS\n$ROOT_PASS" | passwd root
+#echo "root:$ROOT_PASS" | chpasswd
+
+echo 'Disable uhttpd/luci for security'
+/etc/init.d/uhttpd disable
+
+echo ""
+echo ""
+echo "----------------------------------------------------------------"
+echo "  The openwrt is installed and configured."
+echo "Keep in mind that the ssh port is 20222,"
+echo "and the uhttpd service is not active by default."
+echo "Then type '/etc/init.d/uhhtpd start' to be able to access luci."
+echo "Finally, close the service once finishing configuring."
+echo "----------------------------------------------------------------"
