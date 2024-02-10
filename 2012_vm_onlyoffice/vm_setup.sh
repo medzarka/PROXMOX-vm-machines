@@ -52,7 +52,7 @@ STORAGE=local-lvm
 
 #############################################################
 ### Destroy the old VM if it exists
-destroy_old_vm $TEMPLATE_VM_ID
+destroy_old_vm $VMID
 
 #############################################################
 ### Create new VM
