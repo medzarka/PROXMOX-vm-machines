@@ -44,7 +44,7 @@ DEFAULT_USER=$RETURN_VALUE
 create_retrive_common_variable_from_pass "default_password_length"
 DEFAULT_PASSWORD_LENGTH=$RETURN_VALUE
 
-create_retrive_specific_vm_user_password_from_pass $TEMPLATE_VM_ID $DEFAULT_PASSWORD_LENGTH
+create_retrive_specific_vm_user_password_from_pass $VMID $DEFAULT_PASSWORD_LENGTH
 USER_PASSWORD=$RETURN_VALUE
 
 STORAGE=local-lvm   

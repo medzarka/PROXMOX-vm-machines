@@ -145,7 +145,7 @@ create_retrive_specific_vm_user_password_from_pass()
         RETURN_VALUE=$DATA_VALUE
         
     else
-        echo "ERROR: The DEFAULT_PASSWORD_LENGTH/VM_ID are not well defined for the create_retrive_specific_template_user_password_from_pass function. Exiting" 
+        echo "ERROR: The DEFAULT_PASSWORD_LENGTH/VM_ID are not well defined for the create_retrive_specific_vm_user_password_from_pass function. Exiting" 
         exit -1
     fi
 }
