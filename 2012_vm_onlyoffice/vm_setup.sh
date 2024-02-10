@@ -21,7 +21,7 @@ RAM=16384
 CORES=6
 BRIDGE=vmbr1
 VLAN=20
-EXPAND_DISKIMAGE_SIZE=32G # 0G for no resize
+EXPAND_DISKIMAGE_SIZE=64G # 0G for no resize
 
 # Specific configs
 IP=192.168.50.12/24
@@ -58,7 +58,7 @@ create_new_vm
 
 #############################################################
 ### Start the VM template, wait it to start, and then execute the setup script 
-#template_os_setup
+template_os_setup
 
 
 #############################################################

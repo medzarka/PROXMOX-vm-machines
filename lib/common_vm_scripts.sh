@@ -50,6 +50,8 @@ create_new_vm(){
         echo "Disk image resize ignored"
     fi
 
+    sudo sync
+
 }
 
 destroy_old_vm(){
