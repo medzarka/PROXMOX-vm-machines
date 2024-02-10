@@ -1,23 +1,16 @@
 #!/bin/sh
 
 
-#### Step 1 Configuring the postgresql database
+# [x] Update the system
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get autoremove -y 
 
-## ------------------------------------------------------------------------
-# [x] Configure auto system update and backup
+# [x] Install Onlyoffice Workspace
+wget https://download.onlyoffice.com/install/workspace-install.sh
 
-sudo touch /etc/bluewave/update.test
-sudo touch /etc/bluewave/backup.test
-sudo touch /etc/bluewave/rclone.test
-cat <<EOF > /etc/bluewave/backup.list
-configs /etc
-root /root
-odoo17 /opt/odoo17
-logs /var/log
-EOF
 
-# [x] Update Repository
-sudo apt update
+
 
 wget https://download.onlyoffice.com/install/workspace-install.sh
 sudo bash workspace-install.sh
