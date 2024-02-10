@@ -21,12 +21,10 @@ RAM=16384
 CORES=6
 BRIDGE=vmbr1
 VLAN=20
-DISK_SIZE_EXTEND=32G
+EXPAND_DISKIMAGE_SIZE=32G # 0G for no resize
 
 # Specific configs
 IP=192.168.50.12/24
-# RECHECK check the size
-EXPAND_DISKIMAGE_SIZE=4G # 0G for no resize
 
 #### Cloud Init
 IP=192.168.20.12/24

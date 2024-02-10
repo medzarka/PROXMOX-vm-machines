@@ -45,7 +45,7 @@ create_new_vm(){
     if [ $EXPAND_DISKIMAGE_SIZE != "0G" ]
     then
         echo "Update the disk image size to $EXPAND_DISKIMAGE_SIZE ..."
-        sudo qm disk resize $TEMPLATE_VM_ID scsi0 $EXPAND_DISKIMAGE_SIZE
+        sudo qm disk resize $VMID scsi0 $EXPAND_DISKIMAGE_SIZE
     else
         echo "Disk image resize ignored"
     fi
