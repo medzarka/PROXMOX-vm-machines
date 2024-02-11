@@ -18,10 +18,10 @@ vm_creation_steps(){
     load_vm_data
 
     # Destroy the old VM if it exists
-    #destroy_old_vm $VMID
+    destroy_old_vm $VMID
 
     # Create new VM
-    #create_new_vm
+    create_new_vm
 
     # Start the VM template, wait it to start, and then execute the setup script
     template_os_setup

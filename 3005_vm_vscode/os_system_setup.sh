@@ -105,7 +105,7 @@ eval "\$(pyenv virtualenv-init -)"
 #
 #
 EOF
-source /home/$USER_NAME/.bashrc
+. /home/$USER_NAME/.bashrc
 
 ################################################
 # [x] Install sdkman
@@ -132,7 +132,7 @@ source "\$SDKMAN_DIR/bin/sdkman-init.sh"
 #
 #
 EOF
-source /home/$USER_NAME/.bashrc
+. /home/$USER_NAME/.bashrc
 
 
 
