@@ -89,7 +89,7 @@ template_os_setup(){
         echo ".env does not exist. We create it."
         sudo mkdir -p .env
     fi
-    scp -qBr .env/ $DEFAULT_USER@$IPP:/home/$DEFAULT_USER
+    scp -B -r .env/ $DEFAULT_USER@$IPP:/home/$DEFAULT_USER
 
     echo "   execute the script on the VM"
     #ssh -q -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DEFAULT_USER@$IPP 'sh -s' < os_system_setup.sh
