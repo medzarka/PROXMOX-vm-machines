@@ -60,6 +60,8 @@ load_vm_data(){
             echo "$DATA_VALUE" | sudo tee -a ".env/$AA_DATA" > /dev/null
         fi
     done
+
+    sudo sync
 }
 
 template_os_setup(){
@@ -92,6 +94,8 @@ template_os_setup(){
     echo "   execute the script on the VM"
     #ssh -q -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DEFAULT_USER@$IPP 'sh -s' < os_system_setup.sh
     echo "   the execution of the script on the template is done."
+
+    sudo sync
     
 }
 
@@ -136,6 +140,7 @@ destroy_old_vm(){
     if [ -n "$VM_ID" ] ; then
         echo "Destroying the old VM wit ID $VM_ID ..."
         sudo qm shutdown $VM_ID --timeout 30
+        sudo qm stop $VM_ID --timeout 30
         sudo qm destroy $VM_ID --destroy-unreferenced-disks 1 --purge 1 
     else
         echo "ERROR: VM_ID is not well provided for the destroy_old_vm function."
