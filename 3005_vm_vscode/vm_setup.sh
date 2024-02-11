@@ -8,7 +8,7 @@ echo "-----------------------------------------------------------------"
 
 # Proxmox
 TEMPLATE=5124 # Ubuntu 24.04
-VMID=3003
+VMID=3099 # 3003
 TAGS=_vms,vscode,dev
 MACHINE_NAME=VSCODE
 START_ON_PVE_REBOOT=1
@@ -21,7 +21,7 @@ VLAN=30
 EXPAND_DISKIMAGE_SIZE=64G # 0G for no resize
 
 #### Cloud Init
-IP=192.168.30.3/24
+IP=192.168.30.200/24 #192.168.30.3
 GW=192.168.30.1
 DNS=192.168.30.1
 
