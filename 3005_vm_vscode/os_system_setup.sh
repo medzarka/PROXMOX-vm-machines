@@ -1,8 +1,3 @@
-#https://tldp.org/HOWTO/NFS-HOWTO/performance.html
-
-
-
-
 ## ------------------------------------------------------------------------
 # [x] Configure auto system update and backup
 
