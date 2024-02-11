@@ -33,7 +33,7 @@ sudo bash install-Debian.sh -it WORKSPACE # Install ONLYOFFICE Workspace using D
 sudo bash install-Debian.sh -h # to display available script parameters
 sudo bash install-Debian.sh -u true -it WORKSPACE # to update existing ONLYOFFICE Workspace components using DEB packages
 
-# [x] Install Required Dependencies
+# [x] Install sone fonts
 sudo apt install -y build-essential libcurl4 libxml2 fonts-dejavu \
     fonts-liberation ttf-mscorefonts-installer fonts-crosextra-carlito \
     fonts-takao-gothic fonts-opensymbol fonts-hosny-amiri  \
@@ -41,12 +41,23 @@ sudo apt install -y build-essential libcurl4 libxml2 fonts-dejavu \
 
 wget https://archive.org/download/PowerPointViewer_201801/PowerPointViewer.exe
 sudo cabextract PowerPointViewer.exe -F ppviewer.cab
-sudo mkdir -p /usr/share/fonts/ms
+sudo mkdir -p /usr/share/fonts/powerpoint
 sudo cabextract ppviewer.cab -F '*.TTC' -d /usr/share/fonts/ms
 sudo cabextract ppviewer.cab -F '*.TTF' -d /usr/share/fonts/ms
 sudo rm -f PowerPointViewer.exe
 sudo rm -f ppviewer.cab
 sudo fc-cache -fv
+
+wget https://filedn.com/luEnu9wIDvzholR0Mi4tGLb/linux_images/win_fonts.zip
+sudo unzip win_fonts.zip
+sudo mkdir -p /usr/share/fonts/windows
+sudo cp win_fonts/** /usr/share/fonts/windows
+sudo rm -rf win_fonts.zip
+sudo rm -rf win_fonts/
+sudo fc-cache -fv
+
+
+
 
 # [x] Configure the firewall for onlyoffice access
 sudo ufw allow http
