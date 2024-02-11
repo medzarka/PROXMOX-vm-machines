@@ -1,15 +1,7 @@
-## ------------------------------------------------------------------------
-# [x] Configure auto system update and backup
 
-sudo touch /etc/bluewave/update.test
-sudo touch /etc/bluewave/backup.test
-sudo touch /etc/bluewave/rclone.test
-cat <<EOF > /etc/bluewave/backup.list
-configs /etc
-postgres /var/lib/postgresql
-root /root
-vscode /home/vscode/vscode
-EOF
+# [x] read the variables from the env files
+VSCODE_PASSKEY=$(cat /home/abc/.env/secret_VSCODE_PASSKEY)
+USER_NAME=$USER
 
 # ---------------------------------------------------
 # [x] Update the system and install required softwares
@@ -25,7 +17,6 @@ sudo apt-get install -y --no-install-recommends   \
   libharfbuzz-dev libfribidi-dev libxcb1-dev \
   pandoc unzip zip
 
-# ---------------------------------------------------
 echo "**** install C/C++ packages ****" 
 sudo apt-get install -y --no-install-recommends g++ gdb gcc
 
@@ -36,7 +27,7 @@ echo "**** install rust packages ****"
 sudo apt-get install -y --no-install-recommends rustc
   
 
-# [x] Install and condifure vs code server
+# [x] Install and configure code-server
 ################################################
 #### Install cs-code server
 echo "**** install code-server ****"
@@ -46,44 +37,40 @@ sudo mkdir -p /app/code-server
 sudo curl -o /tmp/code-server.tar.gz -L "https://github.com/coder/code-server/releases/download/v${CODE_RELEASE}/code-server-${CODE_RELEASE}-linux-${MACHINE_ARCH}.tar.gz"
 sudo tar xf /tmp/code-server.tar.gz -C /app/code-server --strip-components=1
 
-USER_NAME=vscode
-
-mkdir -p ~/vscode/config/extensions
-mkdir -p ~/vscode/config/data
-mkdir -p ~/vscode/config/workspace
+mkdir -p /home/$USER_NAME/vscode/config/extensions
+mkdir -p /home/$USER_NAME/vscode/config/data
+mkdir -p /home/$USER_NAME/vscode/config/workspace
 # fix permissions (ignore contents of /config/workspace)
-find ~/vscode/config/ -path ~/vscode/config/workspace -prune -o -exec chown $USER_NAME:$USER_NAME {} +
-chown -R $USER_NAME:$USER_NAME ~/vscode
+find /home/$USER_NAME/vscode/config/ -path /home/$USER_NAME/vscode/config/workspace -prune -o -exec chown $USER_NAME:$USER_NAME {} +
+chown -R $USER_NAME:$USER_NAME /home/$USER_NAME/vscode
 sudo chown -R $USER_NAME:$USER_NAME /app/code-server
-sudo pass generate system/vscode 100 -n
-VSCODE_PASSWORD="$(sudo pass system/vscode)"
-sed -r -i "s/password:.*/password: $VSCODE_PASSWORD/g" /home/vscode/.config/code-server/config.yaml
-sed -r -i "s/bind-addr:.*/bind-addr: 0.0.0.0:8080/g" /home/vscode/.config/code-server/config.yaml
 
 
-
-sudo cat << EOF > /etc/systemd/system/code-server.service
+sudo tee /etc/systemd/system/code-server.service >/dev/null <<EOF
 [Unit]
 Description=code-server
 
 [Service]
-User=vscode
-WorkingDirectory=/home/vscode
-#Environment=PASSWORD="$(sudo pass system/vscode)"
-ExecStart=/app/code-server/bin/code-server --bind-addr 0.0.0.0:8080 --user-data-dir /home/vscode/vscode/config/data --extensions-dir /home/vscode/vscode/config/extensions --disable-telemetry --auth password /home/vscode/vscode/config/workspace
+User=$USER_NAME
+WorkingDirectory=/home/$USER_NAME
+ExecStart=/app/code-server/bin/code-server --bind-addr 0.0.0.0:8080 --user-data-dir /home/$USER_NAME/vscode/config/data --extensions-dir /home/$USER_NAME/vscode/config/extensions --disable-telemetry --auth password /home/$USER_NAME/vscode/config/workspace
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 EOF
+
 sudo systemctl daemon-reload
 sudo systemctl start code-server
-sudo systemctl restart code-server
 sudo systemctl enable code-server
 
-7lkPde7SlDTLK9WAuQedovi1HtM34YWGUEB4SXC7mCi6aBaz3l
+sed -r -i "s/password:.*/password: $VSCODE_PASSKEY/g" /home/$USER_NAME/.config/code-server/config.yaml
+sed -r -i "s/bind-addr:.*/bind-addr: 0.0.0.0:8080/g" /home/$USER_NAME/.config/code-server/config.yaml
 
-# [x] Configure the firewall for vs code access
+sudo systemctl restart code-server
+
+
+# [x] Configure the firewall for code-access
 sudo ufw allow 8080/tcp
 
 ################################################
@@ -103,14 +90,22 @@ pyenv rehash
 pip install --upgrade pip
 pip install --upgrade wheel
 
-cat << EOF >> ~/.bashrc
-# Pyenv configuration
+
+tee /home/$USER_NAME/.bashrc >/dev/null <<EOF
+#
+#
+# Start: Pyenv configuration
+#
 export PYENV_ROOT=/app/pyenv
 export PATH=\$PYENV_ROOT/shims:\$PYENV_ROOT/bin:\$PATH
 eval "\$(pyenv init -)"
 eval "\$(pyenv virtualenv-init -)"
+#
+# End: Pyenv configuration
+#
+#
 EOF
-source ~/.bashrc
+source /home/$USER_NAME/.bashrc
 
 ################################################
 # [x] Install sdkman
@@ -125,18 +120,24 @@ sdk use java 21.0.1-oracle
 sdk default java 21.0.1-oracle
 
 sudo chown -R $USER_NAME:$USER_NAME $SDKMAN_DIR
-cat << EOF >> ~/.bashrc
-# sdkman configuration
+tee /home/$USER_NAME/.bashrc >/dev/null <<EOF
+#
+#
+# Start: sdkman configuration
+#
 export SDKMAN_DIR=/app/sdkman
 source "\$SDKMAN_DIR/bin/sdkman-init.sh"
+#
+# End: sdkman configuration
+#
+#
 EOF
-source ~/.bashrc
-
+source /home/$USER_NAME/.bashrc
 
 
 
 # [x] Create user ssh keys
-ssh-keygen -P "" -m PEM -t rsa -b 4096 -C "vscode@pve01"
+ssh-keygen -P "" -q -m PEM -t rsa -b 4096 -C "USER_NAME@code-server" -N '' -f /home/$USER_NAME/.ssh/id_rsa <<<y >/dev/null 2>&1
 
 
 ################################################
@@ -147,3 +148,4 @@ sudo apt-get -y clean
 sudo apt-get -y autoclean 
 sudo apt-get -y autoremove
 sudo rm -rf /var/lib/apt/lists/*
+sudo rm -rf /home/$USER_NAME/.env
