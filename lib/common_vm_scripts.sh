@@ -65,8 +65,15 @@ template_os_setup(){
         fi
     done
 
+    echo "   copy the .env to the VM (under root/ folder)"    
+    if [ ! -d ".env" ]; then
+        echo ".env does not exist. We create it."
+        sudo mkdir -p .env
+    fi
+    scp -q -r .env/ $DEFAULT_USER@$IPP:/root
+
     echo "   execute the script on the VM"
-    ssh -q -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DEFAULT_USER@$IPP 'sh -s' < os_system_setup.sh
+    #ssh -q -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DEFAULT_USER@$IPP 'sh -s' < os_system_setup.sh
     echo "   the execution of the script on the template is done."
     
 }
