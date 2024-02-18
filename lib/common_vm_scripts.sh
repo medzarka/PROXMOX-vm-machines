@@ -92,7 +92,7 @@ template_os_setup(){
     scp -q -v -r -o "BatchMode=yes" -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" .env/ $DEFAULT_USER@$IPP:/home/$DEFAULT_USER
 
     echo "   execute the script on the VM"
-    ssh -q -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DEFAULT_USER@$IPP 'sh -s' < os_system_setup.sh
+    ssh -q -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $DEFAULT_USER@$IPP 'bash -s' < os_system_setup.sh
     echo "   the execution of the script on the template is done."
 
     sudo sync

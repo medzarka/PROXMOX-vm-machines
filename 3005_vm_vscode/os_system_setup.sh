@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # [x] read the variables from the env files
 VSCODE_PASSKEY=$(cat /home/abc/.env/secret_VSCODE_PASSKEY)
@@ -64,8 +65,14 @@ sudo systemctl daemon-reload
 sudo systemctl start code-server
 sudo systemctl enable code-server
 
-sed -r -i "s/password:.*/password: $VSCODE_PASSKEY/g" /home/$USER_NAME/.config/code-server/config.yaml
-sed -r -i "s/bind-addr:.*/bind-addr: 0.0.0.0:8080/g" /home/$USER_NAME/.config/code-server/config.yaml
+tee /home/$USER_NAME/.config/code-server/config.yaml >/dev/null <<EOF
+bind-addr: 0.0.0.0:8080
+auth: password
+password: $VSCODE_PASSKEY
+cert: false
+EOF
+#sed -r -i "s/password:.*/password: $VSCODE_PASSKEY/g" /home/$USER_NAME/.config/code-server/config.yaml
+#sed -r -i "s/bind-addr:.*/bind-addr: 0.0.0.0:8080/g" /home/$USER_NAME/.config/code-server/config.yaml
 
 sudo systemctl restart code-server
 
@@ -105,7 +112,7 @@ eval "\$(pyenv virtualenv-init -)"
 #
 #
 EOF
-. /home/$USER_NAME/.bashrc
+source /home/$USER_NAME/.bashrc
 
 ################################################
 # [x] Install sdkman
@@ -132,13 +139,10 @@ source "\$SDKMAN_DIR/bin/sdkman-init.sh"
 #
 #
 EOF
-. /home/$USER_NAME/.bashrc
-
-
+source /home/$USER_NAME/.bashrc
 
 # [x] Create user ssh keys
 ssh-keygen -P "" -q -m PEM -t rsa -b 4096 -C "USER_NAME@code-server" -N '' -f /home/$USER_NAME/.ssh/id_rsa <<<y >/dev/null 2>&1
-
 
 ################################################
 #### cleaning up
