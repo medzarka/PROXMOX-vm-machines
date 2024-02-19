@@ -54,22 +54,43 @@ sudo apt install -y build-essential libcurl4 libxml2 fonts-dejavu \
     fonts-takao-gothic fonts-opensymbol fonts-hosny-amiri  \
     fonts-cmu
 
+
 wget https://archive.org/download/PowerPointViewer_201801/PowerPointViewer.exe
 sudo cabextract PowerPointViewer.exe -F ppviewer.cab
-sudo mkdir -p /usr/share/fonts/powerpoint
+sudo mkdir -p /usr/share/fonts/ms
 sudo cabextract ppviewer.cab -F '*.TTC' -d /usr/share/fonts/ms
 sudo cabextract ppviewer.cab -F '*.TTF' -d /usr/share/fonts/ms
 sudo rm -f PowerPointViewer.exe
 sudo rm -f ppviewer.cab
 sudo fc-cache -fv
 
-#wget https://filedn.com/luEnu9wIDvzholR0Mi4tGLb/linux_images/win_fonts.zip
-#sudo unzip win_fonts.zip
-#sudo mkdir -p /usr/share/fonts/windows
-#sudo cp win_fonts/** /usr/share/fonts/windows
-#sudo rm -rf win_fonts.zip
-#sudo rm -rf win_fonts/
+
+
+wget https://filedn.com/luEnu9wIDvzholR0Mi4tGLb/linux_images/myfonts.zip
+sudo unzip myfonts.zip
+sudo mkdir -p /usr/share/fonts/myfonts
+sudo cp fonts/** /usr/share/fonts/myfonts
+sudo rm -rf myfonts.zip
+sudo rm -rf fonts/
+sudo fc-cache -fv
+
+
+
+#wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip
+#sudo mkdir -p /usr/share/fonts/fira
+#sudo unzip Fira_Code_v6.2.zip -d /usr/share/fonts/fira
+#sudo rm -rf Fira_Code_v6.2.zip
 #sudo fc-cache -fv
+
+
+#wget https://codeload.github.com/aisgbnok/Apple-Fonts/zip/refs/heads/main -O macos-fonts.zip
+#sudo mkdir -p /usr/share/fonts/macos
+#sudo unzip macos-fonts.zip -d /usr/share/fonts/macos
+#sudo rm -rf macos-fonts.zip
+#sudo fc-cache -fv
+#sudo find /usr/share/fonts/macos -type f  -name '*.md' -delete
+#sudo find /usr/share/fonts/macos -type f  -name '*.pdf' -delete
+#sudo find /usr/share/fonts/macos -type f  -name '*.otf' -delete
 
 sudo /usr/bin/documentserver-generate-allfonts.sh
 

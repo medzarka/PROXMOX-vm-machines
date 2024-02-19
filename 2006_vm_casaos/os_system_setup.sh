@@ -9,6 +9,11 @@ USER_NAME=$USER
 sudo apt-get update
 sudo apt-get upgrade -y 
 
+# ---------------------------------------------------
+# [x] Install casaos
+curl -fsSL https://get.casaos.io | sudo bash
+
+
 # [x] Configure the firewall for code-access
 sudo ufw allow 80/tcp
 
