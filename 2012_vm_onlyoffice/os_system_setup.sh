@@ -112,6 +112,7 @@ echo "Connect Mega.nz to OnlyOffice"
 echo ""
 wget https://mega.nz/linux/repo/Debian_12/amd64/megacmd-Debian_12_amd64.deb 
 sudo dpkg -i megacmd-Debian_12_amd64.deb
+sudo apt install -f -y
 rm -rf megacmd-Debian_12_amd64.deb
 mega-login $MEGA_USERNAME $MEGA_PASSWORD
 mega-webdav $MEGA_WEBDAV_BACKUP
