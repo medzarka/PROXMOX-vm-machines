@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# [x] read the variables from the env files
+# needs MEGA_USERNAME, MEGA_PASSWORD, MEGA_WEBDAV_BACKUP, MEGA_WEBDAV_WORKSPACE
+MEGA_USERNAME=$(cat /home/abc/.env/secret_MEGA_USERNAME)
+MEGA_PASSWORD=$(cat /home/abc/.env/secret_MEGA_PASSWORD)
+MEGA_WEBDAV_BACKUP=$(cat /home/abc/.env/secret_MEGA_WEBDAV_BACKUP)
+MEGA_WEBDAV_WORKSPACE=$(cat /home/abc/.env/secret_MEGA_WEBDAV_WORKSPACE)
+USER_NAME=$USER
+
 # [x] Update the system
 echo ""
 echo "---------------------------------------------------------------"
