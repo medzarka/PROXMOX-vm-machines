@@ -2,13 +2,13 @@
 
 # Specific VM template configurations
 
-# PROXMOX
-TEMPLATE=5124 # Ubuntu 24.04
-VMID=3099 # 3003
-TAGS=_vms,vscode,dev
-MACHINE_NAME=VSCODE
+# Proxmox
+TEMPLATE=5212 # debian 12
+VMID=2012
+TAGS=_dmz,onlyoffice,groupwork
+MACHINE_NAME=ONLYOFFICE
 START_ON_PVE_REBOOT=1
-STORAGE=local-lvm  
+STORAGE=local-lvm 
 
 # KVM
 RAM=12288
