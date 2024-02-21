@@ -1,8 +1,4 @@
-#### install python virtualenv
-apt install python3.11-venv
-python3 -m venv /root/.pyenv
-python_bin=/root/.pyenv/bin/python
-pip_bin=/root/.pyenv/bin/pip
+#!/bin/bash
 
 #######################################
 routeros_version=7.13.5
