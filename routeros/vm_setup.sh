@@ -28,10 +28,13 @@ echo ''
 qm shutdown $vm_id
 qm destroy $vm_id
 qm clone $template_id $vm_id --full --name $vm_name
+qm set $vm_id --onboot 1
+qm start $vm_id
 
 echo ''
-echo "### Configuring the routeros through API ..."
+echo "### Configure the routeros through API ..."
 echo ''
+sleep 10
 $python_bin os_setup.py
 
 echo ''
