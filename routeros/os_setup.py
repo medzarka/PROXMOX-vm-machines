@@ -217,7 +217,7 @@ def system_enable_ntp(_api):
 ### Steps
 # ---------------------------------------------------------------------------------------
 api = routeros_api.RouterOsApiPool(DEVICE_IP, username=ADMIN_USER_NAME, password='') # Create a connection
-api.login()  # Connect to the RouterOS device
+#api.login()  # Connect to the RouterOS device
 
 # Users
 add_user(api, FULL_USER_NAME, FULL_USER_PASSWORD, "full")  # Add the new full permissions user
