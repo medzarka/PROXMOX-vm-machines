@@ -218,7 +218,7 @@ def system_enable_ntp(_api):
 # ---------------------------------------------------------------------------------------
 
 # Connect to the RouterOS device
-connection = routeros_api.RouterOsApiPool(DEVICE_IP, username=ADMIN_USER_NAME, password='')
+connection = routeros_api.RouterOsApiPool(DEVICE_IP, username=ADMIN_USER_NAME, password='123')
 api = connection.get_api()
 
 # Users
