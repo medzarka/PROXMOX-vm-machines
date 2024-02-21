@@ -37,7 +37,7 @@ qm set $template_vm_id --net1 virtio,bridge=vmbr1
 qm set $template_vm_id --serial0 socket --vga serial0
 qm set $template_vm_id --memory 256 --cores 2 --cpu host
 qm set $template_vm_id --machine q35 
-qm set $template_vm_id --scsi0 local-lvm:0,import-from=$routeros_unzipped_image_path,discard=on
+qm set $template_vm_id --scsi0 local-lvm:0,import-from=$routeros_unzipped_image_path,aio=io_uring,cache=unsafe,discard=on,iothread=1,ssd=1
 qm set $template_vm_id --boot order=scsi0 --scsihw virtio-scsi-single
 qm set $template_vm_id --tablet 0 
 qm set $template_vm_id --tags $template_tags 

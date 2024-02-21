@@ -32,7 +32,7 @@ qm clone $template_id $vm_id --full --name $vm_name
 echo ''
 echo "### Configuring the routeros through API ..."
 echo ''
-$python_bin os_setup.sh
+$python_bin os_setup.py
 
 echo ''
 echo "### Done."
