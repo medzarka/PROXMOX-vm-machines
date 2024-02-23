@@ -1,0 +1,2 @@
+https://blog.kroy.io/2020/05/04/vyos-from-scratch-edition-1/#WAN_and_Zones
+https://www.vanwerkhoven.org/blog/2022/home-server-configuration/
