@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # [x] read the variables from the env files
-VSCODE_PASSKEY=$(cat /home/abc/.env/secret_VSCODE_PASSKEY)
+CODER_ACCESS_URL=$(cat /home/abc/.env/secret_CODER_ACCESS_URL)
 USER_NAME=$USER
 
 # ---------------------------------------------------
@@ -17,8 +17,7 @@ sudo apt install /tmp/coder_2.8.3_linux_amd64.deb
 coder --version # to check id coder is well installed.
 
 # [x] Configure Coder
-CODER_ACCESS_URL=$(sudo cat /root/ server postgres-builtin-url)
-CODER_PG_CONNECTION_URL=$(sudo coder server postgres-builtin-url)
+CODER_PG_CONNECTION_URL=$(coder server postgres-builtin-url)
 
 sudo tee /etc/coder.d/coder.env >/dev/null <<EOF
 # String. Specifies the external URL (HTTP/S) to access Coder.
@@ -75,3 +74,4 @@ sudo apt-get -y autoclean
 sudo apt-get -y autoremove
 sudo rm -rf /var/lib/apt/lists/*
 sudo rm -rf /home/$USER_NAME/.env
+
