@@ -3,12 +3,12 @@
 # Specific VM template configurations
 
 # Proxmox
-TEMPLATE=5124 # Ubuntu 24.04
+TEMPLATE=5122 # Ubuntu 24.04
 VMID=3002
 TAGS=_vms,coder,dev
 MACHINE_NAME=CODER
 START_ON_PVE_REBOOT=1
-STORAGE=local-lvm 
+STORAGE=local-zfs 
 
 # KVM
 RAM=32768

@@ -14,7 +14,8 @@ echo 'Update the system and install required softwares'
 echo ''
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get dist-upgrade -y
+#sudo apt-get dist-upgrade -y
+sudo sync
 
 # [x] Install Docker
 echo '---------------------------------------------------'
@@ -52,7 +53,7 @@ sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
 sudo systemctl restart docker.service
 sudo systemctl restart containerd.service
-
+sudo sync
 
 # [x] Install postgresql
 echo '---------------------------------------------------'
@@ -62,6 +63,7 @@ echo ''
 sudo apt install postgresql postgresql-contrib
 sudo systemctl restart postgresql
 sudo systemctl status postgresql
+sudo sync
 
 # [x] Install Coder
 echo '---------------------------------------------------'
@@ -72,6 +74,7 @@ wget https://github.com/coder/coder/releases/download/v2.8.3/coder_2.8.3_linux_a
     -O /tmp/coder_2.8.3_linux_amd64.deb
 sudo apt install /tmp/coder_2.8.3_linux_amd64.deb -y
 coder --version # to check id coder is well installed.
+sudo sync
 
 #wget https://downloads.nestybox.com/sysbox/releases/v0.6.3/sysbox-ce_0.6.3-0.linux_amd64.deb \
 #    -O /tmp/sysbox-ce_0.6.3-0.linux_amd64.deb
@@ -121,6 +124,7 @@ EOF
 
 sudo ufw allow 80
 sudo ufw allow 443
+sudo sync
 
 # [x] Start Coder
 echo '---------------------------------------------------'
@@ -146,6 +150,7 @@ newgrp docker
 sudo systemctl restart coder
 # Test Docker
 sudo -u coder docker ps
+sudo sync
 
 # [x] Create user ssh keys
 echo '---------------------------------------------------'
@@ -153,6 +158,7 @@ echo ''
 echo 'Create user ssh keys'
 echo ''
 ssh-keygen -P "" -q -m PEM -t rsa -b 4096 -C "$USER_NAME@code-server" -N '' -f /home/$USER_NAME/.ssh/id_rsa <<<y >/dev/null 2>&1
+sudo sync
 
 ################################################
 #### cleaning up

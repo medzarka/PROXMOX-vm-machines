@@ -8,7 +8,7 @@ VMID=2012
 TAGS=_dmz,onlyoffice,groupwork
 MACHINE_NAME=ONLYOFFICE
 START_ON_PVE_REBOOT=1
-STORAGE=local-lvm 
+STORAGE=local-zfs 
 
 # KVM
 RAM=12288
@@ -18,7 +18,7 @@ VLAN=20
 EXPAND_DISKIMAGE_SIZE=80G # 0G for no resize
 
 #### Cloud Init
-IP=192.168.20.12/24
+IP=192.168.20.3/24
 GW=192.168.20.1
 DNS=192.168.20.1
 
