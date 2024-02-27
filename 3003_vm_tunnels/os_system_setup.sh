@@ -28,6 +28,8 @@ echo ''
 curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
 sudo dpkg -i cloudflared.deb
 sudo cloudflared service install $CLOUDFLARE_TUNNEL_KEY
+sudo systemctl enable --now cloudflared
+sudo rm -rf cloudflared.deb
 sudo sync
 
 # [x] Install and configure Tailscale client
@@ -45,13 +47,9 @@ sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
 
 # Generate an auth key from your Admin console
 # https://login.tailscale.com/admin/settings/keys and replace the placeholder below
-tailscale up --authkey=$TAILSCALE_AUTH_KEY
-
-# Optional: Include this line to make this node available over Tailscale SSH
-tailscale set --ssh
-
+sudo tailscale up --authkey=$TAILSCALE_AUTH_KEY
 # Optional: Include this line to configure this machine as an exit node
-tailscale set --advertise-exit-node
+sudo tailscale up --accept-routes --advertise-exit-node --advertise-routes=192.168.0.0/16 --ssh
 
 sudo sync
 
