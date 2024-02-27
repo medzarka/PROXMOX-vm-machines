@@ -46,6 +46,8 @@ resource "coder_agent" "main" {
   startup_script = <<-EOT
     set -e
     sudo chown -R ${local.username}:${local.username} /home/${local.username}
+    ssh-keygen -P "" -q -m PEM -t rsa -b 4096 -C "${local.username}@cloud-tools" -N '' -f /home/$USER_NAME/.ssh/id_rsa <<<y >/dev/null 2>&1
+
 
   EOT
 
