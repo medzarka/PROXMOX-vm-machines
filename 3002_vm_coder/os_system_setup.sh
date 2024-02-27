@@ -23,7 +23,7 @@ echo ''
 echo 'Install Docker'
 echo ''
 
-# delete any old docker install
+
 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
 # Add Docker's official GPG key:
 sudo apt-get update
@@ -39,6 +39,7 @@ echo \
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 #sudo docker run hello-world # tock check
+
 
 sudo groupadd docker
 sudo usermod -aG docker $USER_NAME
