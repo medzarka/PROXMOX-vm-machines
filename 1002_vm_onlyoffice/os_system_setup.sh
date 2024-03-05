@@ -104,6 +104,18 @@ echo ""
 sudo ufw allow http
 sudo ufw allow https
 
+# [x] Update Elasticsearch consumed memory
+
+
+#In some cases, you might need to change the amount of Elasticsearch consumed memory.
+#To change the consumed memory,
+
+sudo mkdir -p /etc/elasticsearch/jvm.options.d
+sudo tee -a /etc/elasticsearch/jvm.options.d/heap.options <<EOF
+-Xms1g
+-Xmx1g
+EOF
+
 # [x] Connect Mega.nz to OnlyOffice
 # NEED MEGA_USERNAME, MEGA_PASSWORD, MEGA_WEBDAV_BACKUP, MEGA_WEBDAV_WORKSPACE
 #echo ""
@@ -146,7 +158,7 @@ echo "       - \"accessTokenAcceptedVersion\": 2,"
 echo "       - \"signInAudience": "AzureADandPersonalMicrosoftAccount\": 2,"
 echo "       When you save the setting, make sure your app meets the requirement of the validation, otherwise there will be some errors."
 echo ""
-echo "---------:
+echo "---------:"
 echo ""
 
 
