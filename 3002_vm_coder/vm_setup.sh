@@ -3,7 +3,7 @@
 # Specific VM template configurations
 
 # Proxmox
-TEMPLATE=5122 # Ubuntu 22.04
+TEMPLATE=5006 # Ubuntu 22.04
 VMID=3002
 TAGS=_vms,coder,dev
 MACHINE_NAME=coder
@@ -11,8 +11,8 @@ START_ON_PVE_REBOOT=1
 STORAGE=local-zfs 
 
 # KVM
-RAM=32768
-CORES=6
+RAM=16384
+CORES=4
 BRIDGE=vmbr1
 VLAN=30
 EXPAND_DISKIMAGE_SIZE=256G # 0G for no resize
