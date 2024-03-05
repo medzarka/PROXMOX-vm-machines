@@ -36,7 +36,7 @@ sudo cp /etc/fstab /etc/fstab.bak
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 echo "The swap file is created."
 fi
-sudo tee /etc/sysctl.d/swapping >/dev/null <<EOF
+sudo tee /etc/sysctl.d/99-swapping >/dev/null <<EOF
 vm.swappiness=5
 vm.vfs_cache_pressure=50
 EOF
