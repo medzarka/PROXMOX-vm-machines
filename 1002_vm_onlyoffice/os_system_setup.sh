@@ -2,10 +2,10 @@
 
 # [x] read the variables from the env files
 # needs MEGA_USERNAME, MEGA_PASSWORD, MEGA_WEBDAV_BACKUP, MEGA_WEBDAV_WORKSPACE
-MEGA_USERNAME=$(cat /home/abc/.env/secret_MEGA_USERNAME)
-MEGA_PASSWORD=$(cat /home/abc/.env/secret_MEGA_PASSWORD)
-MEGA_WEBDAV_BACKUP=$(cat /home/abc/.env/secret_MEGA_WEBDAV_BACKUP)
-MEGA_WEBDAV_WORKSPACE=$(cat /home/abc/.env/secret_MEGA_WEBDAV_WORKSPACE)
+#MEGA_USERNAME=$(cat /home/abc/.env/secret_MEGA_USERNAME)
+#MEGA_PASSWORD=$(cat /home/abc/.env/secret_MEGA_PASSWORD)
+#MEGA_WEBDAV_BACKUP=$(cat /home/abc/.env/secret_MEGA_WEBDAV_BACKUP)
+#MEGA_WEBDAV_WORKSPACE=$(cat /home/abc/.env/secret_MEGA_WEBDAV_WORKSPACE)
 USER_NAME=$USER
 
 # [x] Update the system
@@ -51,9 +51,9 @@ wget https://download.onlyoffice.com/install/install-Debian.sh
 sudo bash install-Debian.sh -it WORKSPACE # Install ONLYOFFICE Workspace using DEB packages
 sudo bash install-Debian.sh -h # to display available script parameters
 #sudo bash install-Debian.sh -u true -it WORKSPACE # to update existing ONLYOFFICE Workspace components using DEB packages
-rm -rf megacmd-Debian_12_amd64.deb # keep it for the update
+#rm -rf megacmd-Debian_12_amd64.deb # keep it for the update
 
-# [x] Install sone fonts
+# [x] Install some fonts
 echo ""
 echo "---------------------------------------------------------------"
 echo "Install fonts for OnlyOffice"
@@ -106,28 +106,28 @@ sudo ufw allow https
 
 # [x] Connect Mega.nz to OnlyOffice
 # NEED MEGA_USERNAME, MEGA_PASSWORD, MEGA_WEBDAV_BACKUP, MEGA_WEBDAV_WORKSPACE
-echo ""
-echo "---------------------------------------------------------------"
-echo "Connect Mega.nz to OnlyOffice"
-echo ""
-wget https://mega.nz/linux/repo/Debian_12/amd64/megacmd-Debian_12_amd64.deb 
-sudo dpkg -i megacmd-Debian_12_amd64.deb
-sudo apt install -f -y
-rm -rf megacmd-Debian_12_amd64.deb
-mega-login $MEGA_USERNAME $MEGA_PASSWORD
-mega-webdav $MEGA_WEBDAV_BACKUP
-mega-webdav $MEGA_WEBDAV_WORKSPACE
-echo ""
-echo ""
-echo ""
-echo "---------:
-echo "NOTICE:"
-echo ""
-echo "-- The list of available webdav shares by mega-cmd are:"
-mega-webdav
-echo ""
-echo ""
-echo "---------:
+#echo ""
+#echo "---------------------------------------------------------------"
+#echo "Connect Mega.nz to OnlyOffice"
+#echo ""
+#wget https://mega.nz/linux/repo/Debian_12/amd64/megacmd-Debian_12_amd64.deb 
+#sudo dpkg -i megacmd-Debian_12_amd64.deb
+#sudo apt install -f -y
+#rm -rf megacmd-Debian_12_amd64.deb
+#mega-login $MEGA_USERNAME $MEGA_PASSWORD
+#mega-webdav $MEGA_WEBDAV_BACKUP
+#mega-webdav $MEGA_WEBDAV_WORKSPACE
+#echo ""
+#echo ""
+#echo ""
+#echo "---------:
+#echo "NOTICE:"
+#echo ""
+#echo "-- The list of available webdav shares by mega-cmd are:"
+#mega-webdav
+#echo ""
+#echo ""
+#echo "---------:
 
 # [x] Install Remarks
 echo ""
